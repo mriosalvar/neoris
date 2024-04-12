@@ -1,0 +1,85 @@
+openapi: "3.0.3"
+info:
+  version: 1.0.0
+  title: Price API
+servers:
+  - url: http://price.swagger.io/v1/price
+paths:
+  /price-checking/{applicationDate}/{productId}/{brandId}:
+    get:
+      summary: applied price list
+      operationId: listPrice
+      tags:
+        - Prices
+      parameters:
+        - name: applicationDate
+          in: path
+          required: true
+          description: application date field
+          schema:
+            type: string
+        - name: productId
+          in: path
+          required: true
+          description: product Identifier field
+          schema:
+            type: integer
+        - name: brandId
+          in: path
+          required: true
+          description: BRAND Identifier field
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: applied price list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PriceResponse"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    PriceResponse:
+      type: object
+      properties:
+        productIdentifier:
+          type: string
+          description: product Identifier field
+          example: "35455"
+        brandId:
+          type: integer
+          description: string Identifier field
+          example: 1
+        priceList:
+          type: integer
+          description: price List field
+          example: 4
+        startDate:
+          type: string
+          description: start date field
+          example: '2020-12-31 23:59:59'
+        endDate:
+          type: string
+          description: start date field
+          example: '2020-12-31 23:59:59'
+        price:
+          type: number
+          description: price apply field
+          example: 38.5
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string

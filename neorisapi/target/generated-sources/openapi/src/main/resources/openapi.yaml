@@ -1,0 +1,101 @@
+openapi: 3.0.3
+info:
+  title: Price API
+  version: 1.0.0
+servers:
+- url: http://price.swagger.io/v1/price
+paths:
+  /price-checking/{applicationDate}/{productId}/{brandId}:
+    get:
+      operationId: listPrice
+      parameters:
+      - description: application date field
+        explode: false
+        in: path
+        name: applicationDate
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: product Identifier field
+        explode: false
+        in: path
+        name: productId
+        required: true
+        schema:
+          type: integer
+        style: simple
+      - description: BRAND Identifier field
+        explode: false
+        in: path
+        name: brandId
+        required: true
+        schema:
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceResponse'
+          description: applied price list
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: unexpected error
+      summary: applied price list
+      tags:
+      - Prices
+      x-accepts: application/json
+      x-tags:
+      - tag: Prices
+components:
+  schemas:
+    PriceResponse:
+      example:
+        productIdentifier: "35455"
+        endDate: 2020-12-31 23:59:59
+        price: 38.5
+        brandId: 1
+        startDate: 2020-12-31 23:59:59
+        priceList: 4
+      properties:
+        productIdentifier:
+          description: product Identifier field
+          example: "35455"
+          type: string
+        brandId:
+          description: string Identifier field
+          example: 1
+          type: integer
+        priceList:
+          description: price List field
+          example: 4
+          type: integer
+        startDate:
+          description: start date field
+          example: 2020-12-31 23:59:59
+          type: string
+        endDate:
+          description: start date field
+          example: 2020-12-31 23:59:59
+          type: string
+        price:
+          description: price apply field
+          example: 38.5
+          type: number
+      type: object
+    Error:
+      properties:
+        code:
+          format: int32
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
