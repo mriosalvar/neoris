@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-04-12T10:37:34.548952200-05:00[America/Lima]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-04-18T10:39:54.468254800-05:00[America/Lima]")
 @Validated
 @Tag(name = "Prices", description = "the Prices API")
 public interface PriceCheckingApi {
